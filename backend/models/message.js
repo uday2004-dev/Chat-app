@@ -1,0 +1,22 @@
+import mongoose from "mongoose";
+
+
+const msgModel = new mongoose.Schema({
+
+    senderId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+    receivedId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    message:{
+        type:String,
+        required:true,
+    }
+})
+
+export const Message=mongoose.model("MESSAGE",msgModel)
