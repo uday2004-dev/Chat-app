@@ -19,10 +19,7 @@ const userModel = new mongoose.Schema({
         type: String,
         default: ""
     },
-    email: {
-        type: String,
-        require: true
-    },
+
     gender: {
         type: String,
         enum: ["male", "female"],
