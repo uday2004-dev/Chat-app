@@ -13,4 +13,4 @@ const convoModel=new mongoose.Schema({
     ]
 },{timestamps:true})
 
-export const Conversation =mongoose.model("CONVERSATION",convoModel)
+export const Conversation =mongoose.model("Conversation",convoModel)

@@ -81,7 +81,7 @@ export const login = async (req, res) => {
         // console.log(isPasswordMatched)
 
         if (!isPasswordMatched) {
-            return res.status(404).json({
+            return res.status(401).json({
                 success: false,
                 message: "Please enter valid password"
             })
@@ -91,12 +91,12 @@ export const login = async (req, res) => {
             userId: user._id,
 
         }
-        const token =jwt.sign(tokenData, process.env.JWT_SECRET, { expiresIn: "30m" })
+        const token = jwt.sign(tokenData, process.env.JWT_SECRET, { expiresIn: "30m" })
         res.status(200).cookie("token", token,
             {
                 maxAge: 1 * 24 * 60 * 60 * 1000,
                 httpOnly: true,
-                sameSite:"strict"
+                sameSite: "strict"
             },
 
         ).json({
@@ -113,6 +113,34 @@ export const login = async (req, res) => {
             success: false,
             message: "Something went wrong"
         })
+    }
+
+}
+
+export const logout = async (req, res) => {
+    try {
+        return res.status(200).cookie("token", "", {
+            maxAge: 0,
+            httpOnly: true,
+            sameSite: "strict"
+        })
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+
+export const getOtherUsers = async (req, res) => {
+    try {
+        const loggedInId = req.id;
+        // const otherUser=await User.findOne({_id:{$ne:loggedInId}}).select("-password")
+        const otherUsers = await User.find({
+            _id: { $ne: loggedInId }
+        }).select("-password");
+        return res.status(200).json(otherUsers)
+    } catch (error) {
+        console.log(error)
     }
 
 }
