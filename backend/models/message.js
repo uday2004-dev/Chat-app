@@ -8,15 +8,16 @@ const msgModel = new mongoose.Schema({
         ref: "User",
         required: true,
     },
-    receivedId: {
+    receiverId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
     },
-    message:{
+    message:[{
         type:String,
         required:true,
-    }
-},{timestamps:true})
+    }],
 
-export const Message=mongoose.model("Message",msgModel)
+}, { timestamps: true })
+
+export const Message = mongoose.model("Message", msgModel)
