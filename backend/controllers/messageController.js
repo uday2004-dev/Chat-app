@@ -44,21 +44,7 @@ export const sendMsg = async (req, res) => {
 
 }
 
-// export const getMsg = async (req, res) => {
-//     try {
-//         const receiverId = req.params.id
-//         const senderId = req.id
 
-//         const conversation = await Conversation.findOne({
-
-//             participants: { $all: [senderId, receiverId] }
-//         }).populate("messages")
-//         console.log(conversation)
-//     } catch (error) {
-
-//     }
-
-// }
 
 export const getMsg = async (req, res) => {
     try {
@@ -68,7 +54,7 @@ export const getMsg = async (req, res) => {
 
         const conversation = await Conversation.findOne({
             participants: { $all: [senderId, receiverId] }
-        }).populate("messages")
+        }).populate("messages") // Populate mongoose ka feature hai jo referenced ObjectIds ko actual related documents me replace karta hai.
 
         console.log(conversation.messages)
 
