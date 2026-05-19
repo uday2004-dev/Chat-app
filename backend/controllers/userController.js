@@ -1,6 +1,7 @@
 import { User } from "../models/userModel.js"
 import bcryptjs from "bcryptjs"
 import jwt from "jsonwebtoken"
+
 export const register = async (req, res) => {
     try {
         console.log("BODY:", req.body);
@@ -119,18 +120,7 @@ export const login = async (req, res) => {
 
 }
 
-// export const logout = async (req, res) => {
-//     try {
-//         return res.status(200).cookie("token", "", {
-//             maxAge: 0,
-//             httpOnly: true,
-//             sameSite: "strict"
-//         })
-//     } catch (error) {
-//         console.log(error)
-//     }
 
-// }
 export const logout = async (req, res) => {
     try {
         return res
