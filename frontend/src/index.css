@@ -1,13 +1,6 @@
 @plugin "daisyui";
 @import "tailwindcss";
 
-
-body{
-min-height: 100vh;
-  background-image: url(../src/assets/backgroung.avif);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 1;
-
-}
+/* body{
+  background-color: ;
+} */
