@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
+import toast from 'react-hot-toast'
 
 const Register = () => {
 
@@ -11,13 +12,37 @@ const Register = () => {
     confirmPassword: "",
     gender: ""
   })
-
-  const gender=(gender)=>{
-    setUser({...user,gender})
-
+  const navigate = useNavigate()
+  const gender = (gender) => {
+    setUser({ ...user, gender })
   }
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault()
+    try {
+      const res = await axios.post("http://localhost:3000/api/v1/user/register", user, {
+        headers: {
+          'Content-Type': "application/json"
+        },
+        withCredentials: true
+      });
+      console.log(res.data)
+      if (res.data.success) {
+        navigate("/login")
+        toast.success(res.data.message)
+      }
+    } catch (error) {
+
+  console.log(error.response)
+  console.log(error.response.data)
+
+    }
+    setUser({
+      fullName: "",
+      userName: "",
+      password: "",
+      confirmPassword: "",
+      gender: ""
+    })
     console.log(user)
   }
   return (
@@ -41,7 +66,7 @@ const Register = () => {
               placeholder='Enter Your Name'
               className='w-full input input-bordered h-12 bg-white/20 text-white placeholder:text-gray-300'
               value={user.fullName}
-              onChange={(e) => setUser({...user,fullName: e.target.value})}
+              onChange={(e) => setUser({ ...user, fullName: e.target.value })}
             />
           </div>
 
@@ -75,7 +100,7 @@ const Register = () => {
               placeholder='Enter Your Password'
               className='w-full input input-bordered h-12 bg-white/20 text-white placeholder:text-gray-300'
               value={user.password}
-              onChange={(e) => setUser({...user,password: e.target.value})}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
           </div>
 
@@ -91,7 +116,7 @@ const Register = () => {
               placeholder='Confirm Your Password'
               className='w-full input input-bordered h-12 bg-white/20 text-white placeholder:text-gray-300'
               value={user.confirmPassword}
-              onChange={(e) => setUser({...user,confirmPassword: e.target.value})}
+              onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
             />
           </div>
 
@@ -103,7 +128,9 @@ const Register = () => {
               <input
                 type="checkbox"
                 className="checkbox checkbox-primary"
-                checked={user.gender==="male"}
+                checked={user.gender === "male"}
+                onChange={() => gender("male")}
+
               />
             </div>
 
@@ -113,6 +140,8 @@ const Register = () => {
               <input
                 type="checkbox"
                 className="checkbox checkbox-primary"
+                checked={user.gender === "female"}
+                onChange={() => gender("female")}
               />
             </div>
 
@@ -129,7 +158,7 @@ const Register = () => {
             </Link>
           </div>
 
-          <button className='btn btn-primary btn-block mt-4'>
+          <button className='btn btn-primary btn-block mt-4' type='submit'>
             Register
           </button>
 

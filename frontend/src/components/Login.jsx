@@ -1,7 +1,40 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import axios from 'axios'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+  const [user, setUser] = useState({
+    userName: "",
+    password: "",
+  })
+    const navigate = useNavigate()
+  const onSubmitHandler = async (e) => {
+    e.preventDefault()
+    try {
+      const res = await axios.post("http://localhost:3000/api/v1/user/login", user, {
+        headers: {
+          'Content-Type': "application/json"
+        },
+        withCredentials: true
+      });
+      console.log(res.data)
+      if (res.data.success) {
+        navigate("/login")
+        toast.success(res.data.message)
+      }
+    } catch (error) {
+      console.log(error.response)
+    }
+    setUser({
+
+      userName: "",
+      password: "",
+    })
+    console.log(user)
+  }
   return (
     <div className='flex justify-center items-center min-h-screen px-4'>
 
@@ -11,7 +44,7 @@ const Login = () => {
           Login
         </h1>
 
-        <form className='space-y-4'>
+        <form className='space-y-4' onSubmit={onSubmitHandler}>
 
           <div>
             <label className='label'>
@@ -22,6 +55,8 @@ const Login = () => {
 
             <input
               type="text"
+              value={user.userName}
+              onChange={(e) => setUser({ ...user, userName: e.target.value })}
               placeholder='Enter Your User Name'
               className='w-full input input-bordered h-12 bg-white/20 text-white placeholder:text-gray-300'
             />
@@ -36,6 +71,8 @@ const Login = () => {
 
             <input
               type="password"
+              value={user.password}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
               placeholder='Enter Your Password'
               className='w-full input input-bordered h-12 bg-white/20 text-white placeholder:text-gray-300'
             />
@@ -52,7 +89,7 @@ const Login = () => {
             </Link>
           </div>
 
-          <button className='btn btn-block btn-primary mt-4'>
+          <button type='submit' className='btn btn-block btn-primary mt-4'>
             Login
           </button>
 
