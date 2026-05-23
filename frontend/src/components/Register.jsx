@@ -26,14 +26,14 @@ const Register = () => {
         withCredentials: true
       });
       console.log(res.data)
-      if (res.data.success) {
-        navigate("/login")
-        toast.success(res.data.message)
-      }
+      // if (res.data.success) {
+      //   toast.success(res.data.message)
+      // }
+      navigate("/login")
     } catch (error) {
 
-  console.log(error.response)
-  console.log(error.response.data)
+      console.log(error.response)
+      console.log(error.response.data)
 
     }
     setUser({

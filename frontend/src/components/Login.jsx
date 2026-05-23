@@ -4,13 +4,17 @@ import { useState } from 'react'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setAuthUser } from '../redux/userSlice'
 
 const Login = () => {
   const [user, setUser] = useState({
     userName: "",
     password: "",
   })
-    const navigate = useNavigate()
+
+  const dispatch=useDispatch()
+  const navigate = useNavigate()
   const onSubmitHandler = async (e) => {
     e.preventDefault()
     try {
@@ -21,10 +25,13 @@ const Login = () => {
         withCredentials: true
       });
       console.log(res.data)
-      if (res.data.success) {
-        navigate("/login")
-        toast.success(res.data.message)
-      }
+      // if (res.data.success) {
+      //   console.log("navigate chl rha hai")
+      //   toast.success(res.data.message)
+      // }
+        
+        navigate("/")
+        dispatch(setAuthUser(res.data))
     } catch (error) {
       console.log(error.response)
     }
