@@ -1,9 +1,10 @@
 import React from 'react'
 
-const MessageContainer = () => {
-  return (
-    <div className='md:min-w-[450px] flex flex-col'>
-       <div className='flex items-center gap-3 p-3 hover:bg-gray-800 rounded-lg cursor-pointer transition-all'>
+
+const SingleUser = () => {
+    return (
+
+        <div className='flex items-center gap-3 p-3 hover:bg-gray-800 rounded-lg cursor-pointer transition-all'>
             <div className='avatar online'>
                 <div className='w-12 rounded-full'>
                     <img
@@ -17,10 +18,10 @@ const MessageContainer = () => {
                     <p>Rohit</p>
                 </div>
             </div>
-            
+            <div className="divider"></div>
         </div>
-    </div>
-  )
+
+    )
 }
 
-export default MessageContainer
+export default SingleUser
