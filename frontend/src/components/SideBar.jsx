@@ -1,28 +1,3 @@
-// import React from 'react'
-
-// import { FaSearch } from "react-icons/fa";
-
-// const SideBar = () => {
-//     return (
-//         <div>
-//            <form action="">
-//             <input 
-//             type="text"
-//             className='input input-border rounded-md '
-//             placeholder='Search'
-//              />
-//              <button className='cursor-pointer bg-sky-400 btn btn-circle' type='submit'>
-//                 <FaSearch />
-//              </button>
-//            </form>
-//         </div>
-//     )
-// }
-
-// export default SideBar
-
-
-
 import React from 'react'
 import { FaSearch } from "react-icons/fa";
 import OtherUsers from './OtherUsers';
@@ -39,21 +14,25 @@ const SideBar = () => {
                     placeholder='Search users...'
                     className='input input-bordered w-full rounded-full bg-gray-800 text-white placeholder-gray-400 border-none focus:outline-none'
                 />
-
                 <button
                     type='submit'
                     className='btn btn-circle bg-blue-500 border-none hover:bg-blue-600 text-white'
                 >
                     <FaSearch size={16} />
                 </button>
-
             </form>
 
             {/* Divider */}
             <div className="border-t border-gray-700 my-4"></div>
 
             {/* Users */}
-            <OtherUsers />
+              <div className='flex-1 overflow-hidden'>
+                <OtherUsers />
+
+            </div>
+             
+         
+
             
                 {/* <button className="btn btn-active">Default</button> */}
                 <div className='mt-auto pt-4'>

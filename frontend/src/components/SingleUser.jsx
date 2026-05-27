@@ -18,7 +18,7 @@ const SingleUser = () => {
                     <p>Rohit</p>
                 </div>
             </div>
-            <div className="divider"></div>
+           
         </div>
 
     )
