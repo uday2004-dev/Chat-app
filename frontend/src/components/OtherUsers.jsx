@@ -9,15 +9,19 @@ const OtherUsers = () => {
 
     const { otherUsers } = useSelector(store => store.user)
 
-    if (!otherUsers) return null
+    if (!otherUsers) return
 
     return (
         <div className='h-full overflow-y-auto scroll-smooth'>
 
             {
-                otherUsers.map((user) => (
-                    <SingleUser key={user._id} user={user} />
-                ))
+                otherUsers?.map((user) => {
+                    return (
+
+                        <SingleUser key={user._id} user={user} />
+                    )
+
+                })
             }
 
         </div>

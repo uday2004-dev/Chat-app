@@ -5,28 +5,24 @@ import { useDispatch } from "react-redux"
 import { setOtherUsers } from '../redux/userSlice'
 const useGetOtherUsers = () => {
 
-
     const dispatch = useDispatch()
 
-    const fetchOtherUsers = async () => {
-        try {
-            axios.defaults.withCredentials = true
-            const res = await axios.get("http://localhost:3000/api/v1/user/")
-            console.log(res)
-            dispatch(setOtherUsers(res.data))
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
     useEffect(() => {
+
+        const fetchOtherUsers = async () => {
+            try {
+                axios.defaults.withCredentials = true
+                const res = await axios.get("http://localhost:3000/api/v1/user/")
+                console.log(res)
+                //store
+                dispatch(setOtherUsers(res.data)) //yahan glti thi ok kaise
+            } catch (error) {
+                console.log(error)
+            }
+
+        }
         fetchOtherUsers()
     }, [])
-    return (
-        <div>
-
-        </div>
-    )
 }
 
 export default useGetOtherUsers
