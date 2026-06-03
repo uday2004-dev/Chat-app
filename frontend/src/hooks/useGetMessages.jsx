@@ -26,11 +26,13 @@
 
 import axios from 'axios'
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setMessages } from '../redux/messageSlice'
 
 const useGetMessages = () => {
 
     const { selectedUser } = useSelector(store => store.user)
+    const dispatch=useDispatch()
 
     useEffect(() => {
 
@@ -47,6 +49,8 @@ const useGetMessages = () => {
                 )
 
                 console.log(res)
+                // dispatch(setMessages(res.data))
+                dispatch(setMessages(res.data.messages))
 
             } catch (error) {
                 console.log(error)

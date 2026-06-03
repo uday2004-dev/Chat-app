@@ -27,7 +27,7 @@ export const sendMsg = async (req, res) => {
 
         return res.status(201).json({
             success: true,
-            message: "messsage sent successfully",
+            message: newMsg,
             newMsg
 
         })
