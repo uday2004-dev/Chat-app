@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SendInput from './SendInput'
 import Messages from './Messages'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setSelectedUser } from '../redux/userSlice'
 
 const MessageContainer = () => {
     const {selectedUser}=useSelector(store=>store.user)
+
     return (
         <div className='md:min-w-[550px] flex flex-col'>
             <div className='flex items-center gap-3 p-3 bg-gray-800 rounded-lg cursor-pointer'>

@@ -1,14 +1,22 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useRef } from 'react'
+import { useSelector } from 'react-redux'
 
 const Message = ({ message }) => {
   const scroll = useRef()
+  const { authUser } = useSelector(store => store.user)
   useEffect(() => {
     scroll.current?.scrollIntoView({ behavior: "smooth" })
   }, [message])
   return (
-    <div ref={scroll} className="chat chat-start">
+    <div
+      ref={scroll}
+      className={`chat ${message.senderId === authUser?._id
+          ? "chat-end"
+          : "chat-start"
+        }`}
+    >
       <div className="chat-image avatar">
         <div className="w-10 rounded-full">
           <img
