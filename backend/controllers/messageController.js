@@ -46,6 +46,36 @@ export const sendMsg = async (req, res) => {
 
 
 
+// export const getMsg = async (req, res) => {
+//     try {
+
+//         const receiverId = req.params.id
+//         const senderId = req.id
+
+//         const conversation = await Conversation.findOne({
+//             participants: { $all: [senderId, receiverId] }
+//         }).populate("messages") // Populate mongoose ka feature hai jo referenced ObjectIds ko actual related documents me replace karta hai.
+
+//         console.log(conversation.messages)
+
+//         return res.status(200).json({
+//             success: true,
+//             messages: conversation?.messages
+//         })
+
+//     } catch (error) {
+
+//         console.log(error)
+
+//         return res.status(500).json({
+//             success: false,
+//             message: "Internal server error"
+//         })
+//     }
+// }
+
+
+
 export const getMsg = async (req, res) => {
     try {
 
@@ -54,13 +84,21 @@ export const getMsg = async (req, res) => {
 
         const conversation = await Conversation.findOne({
             participants: { $all: [senderId, receiverId] }
-        }).populate("messages") // Populate mongoose ka feature hai jo referenced ObjectIds ko actual related documents me replace karta hai.
+        }).populate("messages")
+
+        // agar conversation nahi mili
+        if (!conversation) {
+            return res.status(200).json({
+                success: true,
+                messages: []
+            })
+        }
 
         console.log(conversation.messages)
 
         return res.status(200).json({
             success: true,
-            messages: conversation?.messages
+            messages: conversation.messages
         })
 
     } catch (error) {
@@ -73,3 +111,6 @@ export const getMsg = async (req, res) => {
         })
     }
 }
+
+
+

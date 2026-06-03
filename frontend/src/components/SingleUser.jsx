@@ -7,7 +7,7 @@ const SingleUser = ({ user }) => {
 
     const dispatch = useDispatch()
 
-    const { selectedUsers } = useSelector(store => store.user)
+    const { selectedUser } = useSelector(store => store.user)
     const selectedUserHandler = () => {
         console.log(user)
         dispatch(setSelectedUser(user))
@@ -16,7 +16,7 @@ const SingleUser = ({ user }) => {
 
     return (
         <>
-            <div onClick={selectedUserHandler} className={`${selectedUsers?._id === user?._id ? 'bg-gray-800' : ''
+            <div onClick={selectedUserHandler} className={`${selectedUser?._id === user?._id ? 'bg-gray-800' : ''
                 } flex items-center gap-3 p-3 hover:bg-gray-800 rounded-lg cursor-pointer transition-all`}>
 
                 <div className='avatar online'>
