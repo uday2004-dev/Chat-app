@@ -8,8 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import io from "socket.io-client"
 import { setSocket } from './redux/socketSilce'
 import { setOnlineUsers } from './redux/userSlice'
-
-
+import { Socket } from 'socket.io-client'
 
 const router = createBrowserRouter([
   {
@@ -31,30 +30,30 @@ const App = () => {
 
 
   const { authUser } = useSelector(store => store.user)
-  const dispatch =useDispatch()
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    if (authUser) {
-      const socket = io("http://localhost:3000", {
-        query: {
-          userId: authUser._id
-        }
-      })
+    if (!authUser) return;
 
-    }
-    dispatch(setSocket(socket))
-    socket.on('getOnlineUsers',(onlieUsers)=>{
-      
-      dispatch(setOnlineUsers(setOnlineUsers))
+    const socket = io("http://localhost:3000", {
+      query: {
+        userId: authUser._id
+      }
     });
 
-  }, [authUser])
+    dispatch(setSocket(socket));
+
+    socket.on("getOnlineUsers", (onlineUsers) => {
+      dispatch(setOnlineUsers(onlineUsers));
+    });
+
+    return () => {
+      socket.close();
+    };  
+  }, [authUser, dispatch]);
 
   return (
     <>
-
-
-
       <div className='p-4 h-screen flex items-center justify-center'>
         <RouterProvider router={router} />
       </div>

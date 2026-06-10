@@ -7,7 +7,9 @@ const SingleUser = ({ user }) => {
 
     const dispatch = useDispatch()
 
-    const { selectedUser } = useSelector(store => store.user)
+    const { selectedUser,onlineUser } = useSelector(store => store.user)
+    // const isOnline=onlineUser.includes(user._id)
+    const isOnline = onlineUser?.includes(user._id)
     const selectedUserHandler = () => {
         console.log(user)
         dispatch(setSelectedUser(user))
@@ -19,7 +21,7 @@ const SingleUser = ({ user }) => {
             <div onClick={selectedUserHandler} className={`${selectedUser?._id === user?._id ? 'bg-gray-800' : ''
                 } flex items-center gap-3 p-3 hover:bg-gray-800 rounded-lg cursor-pointer transition-all`}>
 
-                <div className='avatar online'>
+                <div className={`${isOnline?'online':""}`}>
                     <div className='w-12 rounded-full'>
                         <img
                             // src={user?.profilePhoto}
